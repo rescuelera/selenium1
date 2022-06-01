@@ -19,24 +19,19 @@ class LoginAdministrationPage(BasePage):
         self.page_url = base_url + self.URL
 
     def input_username_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.INPUT_USER_NAME)
-        return element.is_displayed()
+        return self.driver.find_element(*self.INPUT_USER_NAME).is_displayed()
 
     def input_password_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.INPUT_PASSWORD)
-        return element.is_displayed()
+        return self.driver.find_element(*self.INPUT_PASSWORD).is_displayed()
 
     def login_button_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.LOGIN_BUTTON)
-        return element.is_displayed()
+        return self.driver.find_element(*self.LOGIN_BUTTON).is_displayed()
 
     def help_block_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.HELP_BLOCK)
-        return element.is_displayed()
+        return self.driver.find_element(*self.HELP_BLOCK).is_displayed()
 
     def panel_title_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.PANEL_TITLE)
-        return element.is_displayed()
+        return self.driver.find_element(*self.PANEL_TITLE).is_displayed()
 
     def enter_login(self):
         self.get_element(self.INPUT_USER_NAME).click()

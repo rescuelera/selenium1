@@ -18,20 +18,16 @@ class CatalogPage(BasePage):
         self.page_url = base_url + self.URL
 
     def tablets_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.TABLETS)
-        return element.is_displayed()
+        return self.driver.find_element(*self.TABLETS).is_displayed()
 
     def list_icon_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.LIST_ICON)
-        return element.is_displayed()
+        return self.driver.find_element(*self.LIST_ICON).is_displayed()
 
     def grid_icon_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.GRID_ICON)
-        return element.is_displayed()
+        return self.driver.find_element(*self.GRID_ICON).is_displayed()
 
     def catalog_navigation_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.CATALOG_NAVIGATION)
-        return element.is_displayed()
+        return self.driver.find_element(*self.CATALOG_NAVIGATION).is_displayed()
 
     def get_title(self):
         return self.driver.title
