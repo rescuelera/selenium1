@@ -1,103 +1,118 @@
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from tests.pages.base_page import random_email
+from tests.pages.catalog_page import CatalogPage
+from tests.pages.item_view_page import ItemViewPage
+from tests.pages.login_administration_page import LoginAdministrationPage
+from tests.pages.main_page import MainPage
+from tests.pages.item_in_catalog import ItemInCatalog
+from tests.pages.register_user_page import RegisterUserPage
 
-class MainPage:
-    URL = "/index.php?route=common/home"
-    SLIDER = (By.CSS_SELECTOR, ".slideshow.swiper-viewport")
-    BRAND_SWIPER = (By.CSS_SELECTOR, ".carousel.swiper-viewport")
-    SLIDER_PAGINATION = (
-    By.CSS_SELECTOR, ".swiper-pagination.carousel0.swiper-pagination-clickable.swiper-pagination-bullets")
-    FEATURED = (By.XPATH, "*//h3[contains(text(), 'Featured')]")
-
-
-class TabletsPage:
-    URL = "/tablet"
-    TABLETS = (By.XPATH, "*//h2[contains(text(), 'Tablets')]")
-    LIST_ICON = (By.CSS_SELECTOR, "#list-view")
-    GRID_ICON = (By.CSS_SELECTOR, "#grid-view")
-    CATALOG_NAVIGATION = (By.CSS_SELECTOR, "#column-left > .list-group")
-    ACTIVE_NAVIGTION_ITEM = (
-    By.CSS_SELECTOR, "#column-left > .list-group > .list-group-item.active[contains(text(),'Tablets')]")
-
-
-class ItemViewPage:
-    URL = "/tablet/samsung-galaxy-tab-10-1"
-    ADD_TO_CARD_BUTTON = (By.CSS_SELECTOR, "#button-cart.btn.btn-primary.btn-lg.btn-block")
-    DESCRIPTION_TAB = (By.XPATH, "//li/a[.='Description']")
-    IMAGE_ADDITIONAL = (By.CSS_SELECTOR, "li.image-additional")
-    PRICE = (By.CSS_SELECTOR, "ul.list-unstyled > li >h2")
-    ADD_WISH_LIST_BUTTON = (By.CSS_SELECTOR, "div.btn-group>button>i.fa.fa-heart")
-    EXCHANGE_BUTTON = (By.CSS_SELECTOR, "div.btn-group>button>i.fa.fa-exchange")
-
-
-class RegisterUserPage:
-    URL = "/index.php?route=account/register"
-    INPUT_FIRST_NAME = (By.CSS_SELECTOR, "#input-firstname")
-    INPUT_LAST_NAME = (By.CSS_SELECTOR, "#input-lastname")
-    INPUT_EMAIL = (By.CSS_SELECTOR, "#input-email")
-    INPUT_TELEPHONE = (By.CSS_SELECTOR, "#input-telephone")
-    INPUT_PASSWORD = (By.CSS_SELECTOR, "#input-password")
-
-
-class AdminLoginPage:
-    URL = "/admin/"
-    INPUT_USER_NAME = (By.CSS_SELECTOR, "#input-username")
-    INPUT_PASSWORD = (By.CSS_SELECTOR, "#input-password")
-    LOGIN_BUTTON = (By.CSS_SELECTOR, "button.btn.btn-primary")
-    HELP_BLOCK = (By.CSS_SELECTOR, "span.help-block")
-    PANEL_TITLE = (By.CSS_SELECTOR, "h1.panel-title")
-
-
-def wait_until_element_visible(driver, locator, sec: int = 4):
-    WebDriverWait(driver, sec).until(EC.visibility_of_element_located(locator))
-
-
-def wait_until_elements_visible(driver, locator, sec: int = 4):
-    WebDriverWait(driver, sec).until(EC.visibility_of_all_elements_located(locator))
+# def wait_until_element_visible(driver, locator, sec: int = 4):
+#     element = WebDriverWait(driver, sec).until(EC.visibility_of_element_located(locator))
+#
+#
+# def wait_until_elements_visible(driver, locator, sec: int = 4):
+#     WebDriverWait(driver, sec).until(EC.visibility_of_all_elements_located(locator))
 
 
 def test_main_page(driver, base_url):
-    driver.get(base_url + MainPage.URL)
-    wait_until_element_visible(driver, MainPage.SLIDER)
-    wait_until_element_visible(driver, MainPage.FEATURED)
-    wait_until_element_visible(driver, MainPage.BRAND_SWIPER)
-    wait_until_element_visible(driver, MainPage.SLIDER_PAGINATION)
-    assert "Your Store" == driver.title
+    main_page = MainPage(driver, base_url)
+    main_page.goto_this_page()
+    assert main_page.slider_is_visible()
+    assert main_page.features_is_visible()
+    assert main_page.brand_swiper_is_visible()
+    assert main_page.slider_pagination_is_visible()
+    assert "Your Store" == main_page.get_title()
 
 
 def test_catalog_page(driver, base_url):
-    driver.get(base_url + TabletsPage.URL)
-    wait_until_element_visible(driver, TabletsPage.TABLETS)
-    wait_until_element_visible(driver, TabletsPage.LIST_ICON)
-    wait_until_element_visible(driver, TabletsPage.GRID_ICON)
-    wait_until_element_visible(driver, TabletsPage.CATALOG_NAVIGATION)
-    assert "Tablets" == driver.title
+    catalog_page = CatalogPage(driver, base_url)
+    catalog_page.goto_this_page()
+    assert catalog_page.tablets_is_visible()
+    assert catalog_page.list_icon_is_visible()
+    assert catalog_page.grid_icon_is_visible()
+    assert catalog_page.catalog_navigation_is_visible()
+    assert "Tablets" == catalog_page.get_title()
 
 
 def test_item_view(driver, base_url):
-    driver.get(base_url + ItemViewPage.URL)
-    wait_until_element_visible(driver, ItemViewPage.ADD_TO_CARD_BUTTON)
-    wait_until_element_visible(driver, ItemViewPage.DESCRIPTION_TAB)
-    wait_until_elements_visible(driver, ItemViewPage.IMAGE_ADDITIONAL)
-    wait_until_element_visible(driver, ItemViewPage.ADD_WISH_LIST_BUTTON)
-    wait_until_element_visible(driver, ItemViewPage.EXCHANGE_BUTTON)
+    item_view_page = ItemViewPage(driver, base_url)
+    item_view_page.goto_this_page()
+    assert item_view_page.add_to_card_button_is_visible()
+    assert item_view_page.description_tab_is_visible()
+    assert item_view_page.image_additional_is_visible()
+    assert item_view_page.add_wish_list_button_is_visible()
+    assert item_view_page.exchange_button_is_visible()
 
 
 def test_register_user(driver, base_url):
-    driver.get(base_url + RegisterUserPage.URL)
-    wait_until_element_visible(driver, RegisterUserPage.INPUT_FIRST_NAME)
-    wait_until_element_visible(driver, RegisterUserPage.INPUT_LAST_NAME)
-    wait_until_element_visible(driver, RegisterUserPage.INPUT_EMAIL)
-    wait_until_element_visible(driver, RegisterUserPage.INPUT_TELEPHONE)
-    wait_until_element_visible(driver, RegisterUserPage.INPUT_PASSWORD)
+    register_user_page = RegisterUserPage(driver, base_url)
+    register_user_page.goto_this_page()
+    assert register_user_page.input_first_name_is_visible()
+    assert register_user_page.input_first_name_is_visible()
+    assert register_user_page.input_email_is_visible()
+    assert register_user_page.input_telephone_is_visible()
+    assert register_user_page.input_password_is_visible()
+    register_user_page.enter_first_name("Name")
+    register_user_page.enter_last_name("Familia")
+    register_user_page.enter_email(random_email())
+    register_user_page.enter_telephone("0000000000")
+    register_user_page.enter_password("password")
+    register_user_page.confirm_password("password")
+    register_user_page.click_policy_checkbox()
+    register_user_page.click_submit_button()
+    assert register_user_page.account_created_is_visible()
 
 
 def test_login_administration(driver, base_url):
-    driver.get(base_url + AdminLoginPage.URL)
-    wait_until_element_visible(driver, AdminLoginPage.INPUT_USER_NAME)
-    wait_until_element_visible(driver, AdminLoginPage.INPUT_PASSWORD)
-    wait_until_element_visible(driver, AdminLoginPage.LOGIN_BUTTON)
-    wait_until_element_visible(driver, AdminLoginPage.HELP_BLOCK)
-    wait_until_element_visible(driver, AdminLoginPage.PANEL_TITLE)
+
+    login_administration_page = LoginAdministrationPage(driver, base_url)
+    login_administration_page.goto_this_page()
+    assert login_administration_page.input_username_is_visible()
+    assert login_administration_page.input_password_is_visible()
+    assert login_administration_page.login_button_is_visible()
+    assert login_administration_page.help_block_is_visible()
+    assert login_administration_page.panel_title_is_visible()
+
+def test_change_currency(driver, base_url):
+    main_page = MainPage(driver, base_url)
+    main_page.goto_this_page()
+    main_page.click_switcher_currency()
+    main_page.select_sterling_currency()
+    assert main_page.sterling_currency_is_visible()
+
+def test_add_new_item_for_administration(driver, base_url):
+    login_administration_page = LoginAdministrationPage(driver, base_url)
+    login_administration_page.goto_this_page()
+    login_administration_page.enter_login()
+    login_administration_page.enter_password()
+    login_administration_page.click_login_button()
+    item_in_catalog_page = ItemInCatalog(driver, base_url)
+    item_in_catalog_page.click_catalog_tab()
+    item_in_catalog_page.click_products_tab()
+    item_in_catalog_page.click_add_product()
+    item_in_catalog_page.add_product_name("Name")
+    item_in_catalog_page.add_product_desription("Desription")
+    item_in_catalog_page.add_product_mega_tag_title("Mega Tag Title")
+    item_in_catalog_page.click_data_tab()
+    item_in_catalog_page.add_product_model("Model")
+    item_in_catalog_page.click_submit_button()
+
+
+def test_delete_item_for_administration(driver, base_url):
+    login_administration_page = LoginAdministrationPage(driver, base_url)
+    login_administration_page.goto_this_page()
+    login_administration_page.enter_login()
+    login_administration_page.enter_password()
+    login_administration_page.click_login_button()
+    item_in_catalog_page = ItemInCatalog(driver, base_url)
+    item_in_catalog_page.click_catalog_tab()
+    item_in_catalog_page.click_products_tab()
+    item_in_catalog_page.select_checkdox_1()
+    item_in_catalog_page.click_delete_button()
+    item_in_catalog_page.accept_delete_alert()
