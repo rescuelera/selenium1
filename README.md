@@ -1,2 +1,9 @@
-# selenium1
-selenium1
+# How to run tests
+## With chrome
+```
+pytest --browser chrome
+```
+## With firefox
+```
+pytest --browser firefox
+```

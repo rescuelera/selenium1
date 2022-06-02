@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from tests.pages.base_page import random_email
 from tests.pages.catalog_page import CatalogPage
 from tests.pages.item_view_page import ItemViewPage
 from tests.pages.login_administration_page import LoginAdministrationPage
@@ -18,6 +17,7 @@ from tests.pages.register_user_page import RegisterUserPage
 #
 # def wait_until_elements_visible(driver, locator, sec: int = 4):
 #     WebDriverWait(driver, sec).until(EC.visibility_of_all_elements_located(locator))
+from utils.utils import random_email
 
 
 def test_main_page(driver, base_url):
