@@ -2,6 +2,10 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.opera.options import Options
 from webdriver_manager.opera import OperaDriverManager
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
+
 
 DRIVERS = "E:\\AUTOMATION\\webdriver\\"
 
@@ -15,9 +19,9 @@ def pytest_addoption(parser):
 def driver(request):
     browser_name = request.config.getoption("--browser")
     if browser_name == "firefox":
-        browser = webdriver.Firefox(executable_path=DRIVERS + "geckodriver.exe")
+        browser = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
     elif browser_name == "chrome":
-        browser = webdriver.Chrome(executable_path=DRIVERS + "chromedriver.exe")
+        browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     elif browser_name == "opera":
         options = Options()
         options.binary_location = r'C:\Users\booka-msi\AppData\Local\Programs\Opera\87.0.4390.25_0\opera.exe'

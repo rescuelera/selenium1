@@ -20,17 +20,16 @@ class MainPage(BasePage):
         self.page_url = base_url + self.URL
 
     def slider_is_visible(self) -> bool:
-        return self.driver.find_element(*self.SLIDER).is_displayed()
+        return self.get_element(self.SLIDER).is_displayed()
 
     def features_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.FEATURED)
-        return element.is_displayed()
+        return self.get_element(self.FEATURED).is_displayed()
 
     def brand_swiper_is_visible(self) -> bool:
-        return self.driver.find_element(*self.BRAND_SWIPER).is_displayed()
+        return self.get_element(self.BRAND_SWIPER).is_displayed()
 
     def slider_pagination_is_visible(self) -> bool:
-        return self.driver.find_element(*self.SLIDER_PAGINATION).is_displayed()
+        return self.get_element(self.SLIDER_PAGINATION).is_displayed()
 
     def get_title(self):
         return self.driver.title
@@ -42,4 +41,4 @@ class MainPage(BasePage):
         self.get_element(self.STERLING_CURRENCY).click()
 
     def sterling_currency_is_visible(self) -> bool:
-        return self.driver.find_element(*self.STERLING_CURRENCY_SELECTED).is_displayed()
+        return self.get_element(self.STERLING_CURRENCY_SELECTED).is_displayed()
