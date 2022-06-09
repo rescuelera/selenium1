@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from tests.pages.base_page import BasePage
@@ -19,62 +20,70 @@ class RegisterUserPage(BasePage):
         self.driver = driver
         self.page_url = base_url + self.URL
 
+    @allure.step
     def input_first_name_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.INPUT_FIRST_NAME)
-        return element.is_displayed()
+        return self.get_element(self.INPUT_FIRST_NAME).is_displayed()
 
+    @allure.step
     def input_last_name_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.INPUT_LAST_NAME)
-        return element.is_displayed()
+        return self.get_element(self.INPUT_LAST_NAME).is_displayed()
 
+    @allure.step
     def input_email_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.INPUT_EMAIL)
-        return element.is_displayed()
+        return self.get_element(self.INPUT_EMAIL).is_displayed()
 
+    @allure.step
     def input_telephone_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.INPUT_TELEPHONE)
-        return element.is_displayed()
+        return self.get_element(self.INPUT_TELEPHONE).is_displayed()
 
+    @allure.step
     def input_password_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.INPUT_PASSWORD)
-        return element.is_displayed()
+        return self.get_element(self.INPUT_PASSWORD).is_displayed()
 
+    @allure.step
     def enter_first_name(self, name: str):
-        self.get_element(self.INPUT_FIRST_NAME).click()
-        self.get_element(self.INPUT_FIRST_NAME).clear()
-        self.get_element(self.INPUT_FIRST_NAME).send_keys(name)
+        self.click_on_element(self.INPUT_FIRST_NAME)
+        self.clear_element(self.INPUT_FIRST_NAME)
+        self.send_keys_to_element(self.INPUT_FIRST_NAME, name)
 
+    @allure.step
     def enter_last_name(self, last_name: str):
-        self.get_element(self.INPUT_LAST_NAME).click()
-        self.get_element(self.INPUT_LAST_NAME).clear()
-        self.get_element(self.INPUT_LAST_NAME).send_keys(last_name)
+        self.click_on_element(self.INPUT_LAST_NAME)
+        self.clear_element(self.INPUT_LAST_NAME)
+        self.send_keys_to_element(self.INPUT_LAST_NAME, last_name)
 
+    @allure.step
     def enter_email(self, email: str):
-        self.get_element(self.INPUT_EMAIL).click()
-        self.get_element(self.INPUT_EMAIL).clear()
-        self.get_element(self.INPUT_EMAIL).send_keys(email)
+        self.click_on_element(self.INPUT_EMAIL)
+        self.clear_element(self.INPUT_EMAIL)
+        self.send_keys_to_element(self.INPUT_EMAIL, email)
 
+    @allure.step
     def enter_telephone(self, telephone: str):
-        self.get_element(self.INPUT_TELEPHONE).click()
-        self.get_element(self.INPUT_TELEPHONE).clear()
-        self.get_element(self.INPUT_TELEPHONE).send_keys(telephone)
+        self.click_on_element(self.INPUT_TELEPHONE)
+        self.clear_element(self.INPUT_TELEPHONE)
+        self.send_keys_to_element(self.INPUT_TELEPHONE, telephone)
 
+    @allure.step
     def enter_password(self, password: str):
-        self.get_element(self.INPUT_PASSWORD).click()
-        self.get_element(self.INPUT_PASSWORD).clear()
-        self.get_element(self.INPUT_PASSWORD).send_keys(password)
+        self.click_on_element(self.INPUT_PASSWORD)
+        self.clear_element(self.INPUT_PASSWORD)
+        self.send_keys_to_element(self.INPUT_PASSWORD, password)
 
+    @allure.step
     def confirm_password(self, password: str):
-        self.get_element(self.INPUT_PASSWORD_CONFIRM).click()
-        self.get_element(self.INPUT_PASSWORD_CONFIRM).clear()
-        self.get_element(self.INPUT_PASSWORD_CONFIRM).send_keys(password)
+        self.click_on_element(self.INPUT_PASSWORD_CONFIRM)
+        self.clear_element(self.INPUT_PASSWORD_CONFIRM)
+        self.send_keys_to_element(self.INPUT_PASSWORD_CONFIRM, password)
 
+    @allure.step
     def click_policy_checkbox(self):
-        self.get_element(self.POLICY_CHECKBOX).click()
+        self.click_on_element(self.POLICY_CHECKBOX)
 
+    @allure.step
     def click_submit_button(self):
-        self.get_element(self.SUBMIT_BUTTON).click()
+        self.click_on_element(self.SUBMIT_BUTTON)
 
+    @allure.step
     def account_created_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.ACCOUNT_CREATED)
-        return element.is_displayed()
+        return self.get_element(self.ACCOUNT_CREATED).is_displayed()

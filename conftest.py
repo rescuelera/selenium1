@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selenium import webdriver
 from selenium.webdriver.opera.options import Options
@@ -12,25 +13,41 @@ DRIVERS = "E:\\AUTOMATION\\webdriver\\"
 
 def pytest_addoption(parser):
     parser.addoption("--browser", default="chrome")
-    parser.addoption("--base-url", default="http://192.168.88.251:8081/")
+    parser.addoption("--executor", default="local")
+    parser.addoption("--base-url", default="http://192.168.88.231:8081/")
+    parser.addoption("--browser_version", default=None)
 
 
 @pytest.fixture
 def driver(request):
+    executor=request.config.getoption("--executor")
     browser_name = request.config.getoption("--browser")
-    if browser_name == "firefox":
-        browser = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
-    elif browser_name == "chrome":
-        browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-    elif browser_name == "opera":
-        options = Options()
-        options.binary_location = r'C:\Users\booka-msi\AppData\Local\Programs\Opera\87.0.4390.25_0\opera.exe'
-        browser = webdriver.Opera(options=options, executable_path=OperaDriverManager().install())
+    browser_version = request.config.getoption("--browser_version")
+    if executor=="local":
+        if browser_name == "firefox":
+            browser = webdriver.Firefox(service=Service(GeckoDriverManager().install()))
+        elif browser_name == "chrome":
+            browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+        elif browser_name == "opera":
+            options = Options()
+            options.binary_location = r'C:\Users\booka-msi\AppData\Local\Programs\Opera\87.0.4390.25_0\opera.exe'
+            browser = webdriver.Opera(options=options, executable_path=OperaDriverManager().install())
+        else:
+            raise ValueError("Wrong browser")
     else:
-        raise ValueError("Wrong browser")
-
+        executor_url=f"http://{executor}:4444/wd/hub"
+        caps={
+            "browserName": browser_name,
+            "browserVersion": browser_version,
+            "screenResolution": "1280x720"
+        }
+        browser=webdriver.Remote(
+            command_executor=executor_url,
+            desired_capabilities=caps,
+        )
     browser.maximize_window()
-    yield browser
+    with allure.step(f"browser {browser_name} {browser_version}"):
+        yield browser
     browser.close()
 
 
