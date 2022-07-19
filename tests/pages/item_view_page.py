@@ -1,3 +1,6 @@
+import logging
+
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from tests.pages.base_page import BasePage
@@ -16,26 +19,26 @@ class ItemViewPage(BasePage):
         self.driver = driver
         self.page_url = base_url + self.URL
 
+    @allure.step
     def add_to_card_button_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.ADD_TO_CARD_BUTTON)
-        return element.is_displayed()
+        return self.get_element(self.ADD_TO_CARD_BUTTON).is_displayed()
 
+    @allure.step
     def description_tab_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.DESCRIPTION_TAB)
-        return element.is_displayed()
+        return self.get_element(self.DESCRIPTION_TAB).is_displayed()
 
+    @allure.step
     def image_additional_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.IMAGE_ADDITIONAL)
-        return element.is_displayed()
+        return self.get_element(self.IMAGE_ADDITIONAL).is_displayed()
 
+    @allure.step
     def price_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.PRICE)
-        return element.is_displayed()
+        return self.get_element(self.PRICE).is_displayed()
 
+    @allure.step
     def add_wish_list_button_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.ADD_WISH_LIST_BUTTON)
-        return element.is_displayed()
+        return self.get_element(self.ADD_WISH_LIST_BUTTON).is_displayed()
 
+    @allure.step
     def exchange_button_is_visible(self) -> bool:
-        element = self.driver.find_element(*self.EXCHANGE_BUTTON)
-        return element.is_displayed()
+        return self.get_element(self.EXCHANGE_BUTTON).is_displayed()

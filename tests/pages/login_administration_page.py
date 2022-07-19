@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from tests.pages.base_page import BasePage
@@ -18,30 +19,38 @@ class LoginAdministrationPage(BasePage):
         self.driver = driver
         self.page_url = base_url + self.URL
 
+    @allure.step
     def input_username_is_visible(self) -> bool:
-        return self.driver.find_element(*self.INPUT_USER_NAME).is_displayed()
+        return self.get_element(self.INPUT_USER_NAME).is_displayed()
 
+    @allure.step
     def input_password_is_visible(self) -> bool:
-        return self.driver.find_element(*self.INPUT_PASSWORD).is_displayed()
+        return self.get_element(self.INPUT_PASSWORD).is_displayed()
 
+    @allure.step
     def login_button_is_visible(self) -> bool:
-        return self.driver.find_element(*self.LOGIN_BUTTON).is_displayed()
+        return self.get_element(self.LOGIN_BUTTON).is_displayed()
 
+    @allure.step
     def help_block_is_visible(self) -> bool:
-        return self.driver.find_element(*self.HELP_BLOCK).is_displayed()
+        return self.get_element(self.HELP_BLOCK).is_displayed()
 
+    @allure.step
     def panel_title_is_visible(self) -> bool:
-        return self.driver.find_element(*self.PANEL_TITLE).is_displayed()
+        return self.get_element(self.PANEL_TITLE).is_displayed()
 
+    @allure.step
     def enter_login(self):
-        self.get_element(self.INPUT_USER_NAME).click()
-        self.get_element(self.INPUT_USER_NAME).clear()
-        self.get_element(self.INPUT_USER_NAME).send_keys(self.ADMIN_LOGIN)
+        self.click_on_element(self.INPUT_USER_NAME)
+        self.clear_element(self.INPUT_USER_NAME)
+        self.send_keys_to_element(self.INPUT_USER_NAME, self.ADMIN_LOGIN)
 
+    @allure.step
     def enter_password(self):
-        self.get_element(self.INPUT_PASSWORD).click()
-        self.get_element(self.INPUT_PASSWORD).clear()
-        self.get_element(self.INPUT_PASSWORD).send_keys(self.ADMIN_PASSWORD)
+        self.click_on_element(self.INPUT_PASSWORD)
+        self.clear_element(self.INPUT_PASSWORD)
+        self.send_keys_to_element(self.INPUT_PASSWORD, self.ADMIN_PASSWORD)
 
+    @allure.step
     def click_login_button(self):
-        self.get_element(self.LOGIN_BUTTON).click()
+        self.click_on_element(self.LOGIN_BUTTON)

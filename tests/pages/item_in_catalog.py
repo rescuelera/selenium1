@@ -1,3 +1,6 @@
+import logging
+
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -23,47 +26,59 @@ class ItemInCatalog(BasePage):
     def __init__(self, driver: WebDriver, base_url: str):
         self.driver = driver
 
+    @allure.step
     def click_add_product(self):
-        self.get_element(self.ADD_PRODUCT_BUTTON).click()
+        self.click_on_element(self.ADD_PRODUCT_BUTTON)
 
+    @allure.step
     def add_product_name(self, name: str):
-        self.get_element(self.INPUT_PRODUCT_NAME).click()
-        self.get_element(self.INPUT_PRODUCT_NAME).clear()
-        self.get_element(self.INPUT_PRODUCT_NAME).send_keys(name)
+        self.click_on_element(self.INPUT_PRODUCT_NAME)
+        self.clear_element(self.INPUT_PRODUCT_NAME)
+        self.send_keys_to_element(self.INPUT_PRODUCT_NAME, name)
 
+    @allure.step
     def add_product_desription(self, desription: str):
-        self.get_element(self.INPUT_DESRIPTION).click()
-        self.get_element(self.INPUT_DESRIPTION).clear()
-        self.get_element(self.INPUT_DESRIPTION).send_keys(desription)
+        self.click_on_element(self.INPUT_DESRIPTION)
+        self.clear_element(self.INPUT_DESRIPTION)
+        self.send_keys_to_element(self.INPUT_DESRIPTION, desription)
 
+    @allure.step
     def add_product_model(self, model: str):
-        self.get_element(self.INPUT_MODEL).click()
-        self.get_element(self.INPUT_MODEL).clear()
-        self.get_element(self.INPUT_MODEL).send_keys(model)
+        self.click_on_element(self.INPUT_MODEL)
+        self.clear_element(self.INPUT_MODEL)
+        self.send_keys_to_element(self.INPUT_MODEL, model)
 
+    @allure.step
     def add_product_mega_tag_title(self, model: str):
-        self.get_element(self.META_TAG_TITLE).click()
-        self.get_element(self.META_TAG_TITLE).clear()
-        self.get_element(self.META_TAG_TITLE).send_keys(model)
+        self.click_on_element(self.META_TAG_TITLE)
+        self.clear_element(self.META_TAG_TITLE)
+        self.send_keys_to_element(self.META_TAG_TITLE, model)
 
+    @allure.step
     def click_data_tab(self):
-        self.get_element(self.DATA_TAB).click()
+        self.click_on_element(self.DATA_TAB)
 
+    @allure.step
     def click_submit_button(self):
-        self.get_element(self.SUBMIT_BUTTON).click()
+        self.click_on_element(self.SUBMIT_BUTTON)
 
+    @allure.step
     def click_catalog_tab(self):
-        self.get_element(self.CATALOG).click()
+        self.click_on_element(self.CATALOG)
 
+    @allure.step
     def click_products_tab(self):
-        self.get_element(self.PRODUCTS).click()
+        self.click_on_element(self.PRODUCTS)
 
+    @allure.step
     def select_checkdox_1(self):
-        self.get_element(self.SELECT_CHECKBOX_1).click()
+        self.click_on_element(self.SELECT_CHECKBOX_1)
 
+    @allure.step
     def click_delete_button(self):
-        self.get_element(self.DELETE_BUTTON).click()
+        self.click_on_element(self.DELETE_BUTTON)
 
+    @allure.step
     def accept_delete_alert(self):
         alert = WebDriverWait(self.driver, 2).until(EC.alert_is_present())
         alert.accept()

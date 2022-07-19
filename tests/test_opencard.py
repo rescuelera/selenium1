@@ -1,8 +1,7 @@
 import time
 
+import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 from tests.pages.catalog_page import CatalogPage
 from tests.pages.item_view_page import ItemViewPage
@@ -11,15 +10,11 @@ from tests.pages.main_page import MainPage
 from tests.pages.item_in_catalog import ItemInCatalog
 from tests.pages.register_user_page import RegisterUserPage
 
-# def wait_until_element_visible(driver, locator, sec: int = 4):
-#     element = WebDriverWait(driver, sec).until(EC.visibility_of_element_located(locator))
-#
-#
-# def wait_until_elements_visible(driver, locator, sec: int = 4):
-#     WebDriverWait(driver, sec).until(EC.visibility_of_all_elements_located(locator))
 from utils.utils import random_email
 
 
+@allure.story("Public functionality")
+@allure.title("Check the main page")
 def test_main_page(driver, base_url):
     main_page = MainPage(driver, base_url)
     main_page.goto_this_page()
@@ -30,6 +25,8 @@ def test_main_page(driver, base_url):
     assert "Your Store" == main_page.get_title()
 
 
+@allure.story("Public functionality")
+@allure.title("Check the catalog page")
 def test_catalog_page(driver, base_url):
     catalog_page = CatalogPage(driver, base_url)
     catalog_page.goto_this_page()
@@ -40,6 +37,8 @@ def test_catalog_page(driver, base_url):
     assert "Tablets" == catalog_page.get_title()
 
 
+@allure.story("Public functionality")
+@allure.title("Check the item view page")
 def test_item_view(driver, base_url):
     item_view_page = ItemViewPage(driver, base_url)
     item_view_page.goto_this_page()
@@ -50,6 +49,8 @@ def test_item_view(driver, base_url):
     assert item_view_page.exchange_button_is_visible()
 
 
+@allure.story("Public functionality")
+@allure.title("Check the register user ")
 def test_register_user(driver, base_url):
     register_user_page = RegisterUserPage(driver, base_url)
     register_user_page.goto_this_page()
@@ -69,8 +70,9 @@ def test_register_user(driver, base_url):
     assert register_user_page.account_created_is_visible()
 
 
+@allure.story("Administration functionality")
+@allure.title("Check login for administration")
 def test_login_administration(driver, base_url):
-
     login_administration_page = LoginAdministrationPage(driver, base_url)
     login_administration_page.goto_this_page()
     assert login_administration_page.input_username_is_visible()
@@ -79,6 +81,9 @@ def test_login_administration(driver, base_url):
     assert login_administration_page.help_block_is_visible()
     assert login_administration_page.panel_title_is_visible()
 
+
+@allure.story("Public functionality")
+@allure.title("Check change currency")
 def test_change_currency(driver, base_url):
     main_page = MainPage(driver, base_url)
     main_page.goto_this_page()
@@ -86,6 +91,9 @@ def test_change_currency(driver, base_url):
     main_page.select_sterling_currency()
     assert main_page.sterling_currency_is_visible()
 
+
+@allure.story("Administration functionality")
+@allure.title("Check add new item for administration")
 def test_add_new_item_for_administration(driver, base_url):
     login_administration_page = LoginAdministrationPage(driver, base_url)
     login_administration_page.goto_this_page()
@@ -104,6 +112,8 @@ def test_add_new_item_for_administration(driver, base_url):
     item_in_catalog_page.click_submit_button()
 
 
+@allure.story("Administration functionality")
+@allure.title("Check delete item for administration")
 def test_delete_item_for_administration(driver, base_url):
     login_administration_page = LoginAdministrationPage(driver, base_url)
     login_administration_page.goto_this_page()
